@@ -1,0 +1,153 @@
+<!-- components/icon/icon.wxml -->
+<view class="icon icon-{{name}} {{className}}" style="width:{{size}};height:{{size}};{{customStyle}}">
+  <!-- 相机 -->
+  <view wx:if="{{name === 'camera'}}" class="icon-inner">
+    <view class="camera-body"></view>
+    <view class="camera-lens"></view>
+  </view>
+  
+  <!-- 切换/旋转 -->
+  <view wx:elif="{{name === 'switch'}}" class="icon-inner">
+    <view class="switch-arrow"></view>
+  </view>
+  
+  <!-- 相册/图片 -->
+  <view wx:elif="{{name === 'album'}}" class="icon-inner">
+    <view class="album-frame"></view>
+    <view class="album-mountain"></view>
+    <view class="album-sun"></view>
+  </view>
+  
+  <!-- 勾选 -->
+  <view wx:elif="{{name === 'check'}}" class="icon-inner">
+    <view class="check-mark"></view>
+  </view>
+  
+  <!-- 保存/下载 -->
+  <view wx:elif="{{name === 'save'}}" class="icon-inner">
+    <view class="save-arrow"></view>
+    <view class="save-line"></view>
+  </view>
+  
+  <!-- 衣服 -->
+  <view wx:elif="{{name === 'clothes'}}" class="icon-inner">
+    <view class="clothes-shape"></view>
+  </view>
+  
+  <!-- 分享 -->
+  <view wx:elif="{{name === 'share'}}" class="icon-inner">
+    <view class="share-circle"></view>
+    <view class="share-arrow"></view>
+  </view>
+  
+  <!-- 用户 -->
+  <view wx:elif="{{name === 'user'}}" class="icon-inner">
+    <view class="user-head"></view>
+    <view class="user-body"></view>
+  </view>
+  
+  <!-- 店铺 -->
+  <view wx:elif="{{name === 'store'}}" class="icon-inner">
+    <view class="store-roof"></view>
+    <view class="store-body"></view>
+  </view>
+  
+  <!-- 加载中 -->
+  <view wx:elif="{{name === 'loading'}}" class="icon-inner">
+    <view class="loading-circle"></view>
+  </view>
+  
+  <!-- 魔法棒/AI -->
+  <view wx:elif="{{name === 'magic'}}" class="icon-inner">
+    <view class="magic-wand"></view>
+    <view class="magic-star magic-star-1"></view>
+    <view class="magic-star magic-star-2"></view>
+  </view>
+  
+  <!-- 返回 -->
+  <view wx:elif="{{name === 'back'}}" class="icon-inner">
+    <view class="back-arrow"></view>
+  </view>
+  
+  <!-- 提示 -->
+  <view wx:elif="{{name === 'tip'}}" class="icon-inner">
+    <view class="tip-circle"></view>
+    <view class="tip-line"></view>
+    <view class="tip-dot"></view>
+  </view>
+  
+  <!-- 对比 -->
+  <view wx:elif="{{name === 'compare'}}" class="icon-inner">
+    <view class="compare-left"></view>
+    <view class="compare-right"></view>
+    <view class="compare-line"></view>
+  </view>
+
+  <!-- 包裹/商品 -->
+  <view wx:elif="{{name === 'package'}}" class="icon-inner">
+    <view class="package-box"></view>
+  </view>
+
+  <!-- 分类 -->
+  <view wx:elif="{{name === 'category'}}" class="icon-inner">
+    <view class="category-grid"></view>
+  </view>
+
+  <!-- 图片 -->
+  <view wx:elif="{{name === 'image'}}" class="icon-inner">
+    <view class="image-frame"></view>
+  </view>
+
+  <!-- 设置 -->
+  <view wx:elif="{{name === 'setting'}}" class="icon-inner">
+    <view class="setting-gear"></view>
+  </view>
+
+  <!-- 加号 -->
+  <view wx:elif="{{name === 'plus'}}" class="icon-inner">
+    <view class="plus-h"></view>
+    <view class="plus-v"></view>
+  </view>
+
+  <!-- 编辑 -->
+  <view wx:elif="{{name === 'edit'}}" class="icon-inner">
+    <view class="edit-pencil"></view>
+  </view>
+
+  <!-- 删除 -->
+  <view wx:elif="{{name === 'delete'}}" class="icon-inner">
+    <view class="delete-can"></view>
+  </view>
+
+  <!-- 二维码 -->
+  <view wx:elif="{{name === 'qrcode'}}" class="icon-inner">
+    <view class="qr-pattern"></view>
+  </view>
+
+  <!-- 眼睛 -->
+  <view wx:elif="{{name === 'eye'}}" class="icon-inner">
+    <view class="eye-shape"></view>
+  </view>
+
+  <!-- 链接 -->
+  <view wx:elif="{{name === 'link'}}" class="icon-inner">
+    <view class="link-chain"></view>
+  </view>
+
+  <!-- 复制 -->
+  <view wx:elif="{{name === 'copy'}}" class="icon-inner">
+    <view class="copy-docs"></view>
+  </view>
+
+  <!-- 关闭 -->
+  <view wx:elif="{{name === 'close'}}" class="icon-inner">
+    <view class="close-x"></view>
+  </view>
+
+  <!-- 帮助 -->
+  <view wx:elif="{{name === 'help'}}" class="icon-inner">
+    <view class="help-circle"></view>
+    <view class="help-mark"></view>
+  </view>
+</view>
+

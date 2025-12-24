@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "pages/tryon/tryon",
+    "pages/login/login",
+    "pages/admin/admin",
+    "pages/admin/products/products",
+    "pages/admin/categories/categories",
+    "pages/admin/generated/generated",
+    "pages/admin/settings/settings",
+    "pages/stores/stores"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "AI试衣间",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#000000"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.camera": {
+      "desc": "用于拍摄全身照进行虚拟试穿"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存试穿效果图到相册"
+    }
+  }
+}
+

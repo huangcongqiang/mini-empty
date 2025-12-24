@@ -1,0 +1,267 @@
+<!--pages/tryon/tryon.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-page">
+    <c-icon name="loading" size="64rpx"></c-icon>
+    <text class="loading-page-text">加载中...</text>
+  </view>
+
+  <!-- 错误页面 -->
+  <view wx:elif="{{error && !capturedImage}}" class="error-page">
+    <text class="error-page-text">{{error}}</text>
+    <view class="error-page-btn" bindtap="goBack">返回</view>
+  </view>
+
+  <!-- 主内容 -->
+  <view wx:else class="main-content">
+    <!-- 顶部导航栏 - 适配胶囊按钮 -->
+    <view class="header" style="padding-top: {{statusBarHeight}}px;">
+      <view class="header-left">
+        <view class="back-btn" bindtap="goBack">
+          <c-icon name="back" size="40rpx"></c-icon>
+        </view>
+        <view class="store-info">
+          <c-icon name="store" size="40rpx"></c-icon>
+          <text class="store-name">{{store.storeName || '试衣间'}}</text>
+        </view>
+      </view>
+      <view class="header-right"></view>
+    </view>
+
+    <!-- 相机区域 - 未拍照时显示 -->
+    <view wx:if="{{!capturedImage}}" class="camera-area">
+      <camera
+        class="camera"
+        device-position="{{cameraPosition}}"
+        flash="off"
+        binderror="onCameraError"
+      >
+        <!-- 人形轮廓引导 -->
+        <view class="camera-guide">
+          <view class="guide-outline"></view>
+          <view class="guide-text">请将全身置于框内</view>
+        </view>
+      </camera>
+
+      <!-- 相机控制栏 -->
+      <view class="camera-controls">
+        <view class="control-btn" bindtap="chooseFromAlbum">
+          <c-icon name="album" size="44rpx"></c-icon>
+          <text>相册</text>
+        </view>
+        <view class="capture-btn" bindtap="takePhoto">
+          <view class="capture-inner">
+            <c-icon wx:if="{{countdown > 0}}" name="loading" size="48rpx"></c-icon>
+            <text wx:if="{{countdown > 0}}" class="countdown-text">{{countdown}}</text>
+          </view>
+        </view>
+        <view class="control-btn" bindtap="switchCamera">
+          <c-icon name="switch" size="44rpx"></c-icon>
+          <text>翻转</text>
+        </view>
+      </view>
+    </view>
+
+  <!-- 结果展示区域 - 拍照后显示 -->
+  <view wx:if="{{capturedImage}}" class="result-area">
+    <!-- 顶部操作栏 -->
+    <view class="result-header" style="padding-top: {{statusBarHeight}}px;">
+      <view class="back-btn" bindtap="handleRetake">
+        <c-icon name="back" size="40rpx"></c-icon>
+      </view>
+      <text class="result-title">{{resultImage ? '试穿效果' : '照片预览'}}</text>
+      <view class="header-right"></view>
+    </view>
+
+    <!-- 图片展示 - 点击查看大图 -->
+    <view class="image-container" bindtap="previewImage">
+      <image
+        class="preview-image"
+        src="{{showOriginal ? capturedImage : (resultImage || capturedImage)}}"
+        mode="aspectFill"
+        bindlongpress="onImageTouchStart"
+        bindtouchend="onImageTouchEnd"
+      ></image>
+
+      <!-- 原图提示 -->
+      <view wx:if="{{showOriginal && resultImage}}" class="original-hint">原图</view>
+
+      <!-- 加载中遮罩 -->
+      <view wx:if="{{processing}}" class="loading-overlay">
+        <c-icon name="loading" size="64rpx"></c-icon>
+        <text class="loading-text">AI 正在生成试穿效果...</text>
+      </view>
+
+      <!-- 错误提示 -->
+      <view wx:if="{{error}}" class="error-overlay">
+        <text class="error-text">{{error}}</text>
+        <view class="retry-btn" bindtap="retryGenerate">重试</view>
+      </view>
+    </view>
+
+    <!-- 已试穿商品列表（右侧浮动） -->
+    <view wx:if="{{triedProducts.length > 0}}" class="tried-products">
+      <view
+        wx:for="{{triedProducts}}"
+        wx:key="id"
+        class="tried-item"
+      >
+        <image wx:if="{{item._fullImageUrl}}" src="{{item._fullImageUrl}}" mode="aspectFill"></image>
+        <text wx:else class="tried-icon">{{item.category_icon || '👔'}}</text>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <view wx:if="{{resultImage}}" class="result-actions">
+        <text class="action-hint">点击图片可放大查看 · 长按查看原图</text>
+        <view class="action-buttons">
+          <view class="action-btn" bindtap="showProductsModal">
+            <c-icon name="clothes" size="40rpx"></c-icon>
+            <text>换装</text>
+          </view>
+          <view class="action-btn primary" bindtap="saveToAlbum">
+            <c-icon name="save" size="40rpx"></c-icon>
+            <text>保存</text>
+          </view>
+          <button class="action-btn share-btn" open-type="share">
+            <c-icon name="share" size="40rpx"></c-icon>
+            <text>分享</text>
+          </button>
+        </view>
+      </view>
+      <view wx:else class="select-action">
+        <view class="select-btn" bindtap="showProductsModal">
+          <text>选择商品试穿</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  </view>
+
+  <!-- 商品选择弹窗 -->
+  <view wx:if="{{showProducts}}" class="products-modal">
+    <view class="modal-mask" bindtap="hideProductsModal"></view>
+    <view class="modal-content">
+      <!-- 弹窗头部 -->
+      <view class="modal-header">
+        <text class="modal-title">选择试穿商品</text>
+        <view class="modal-close" bindtap="hideProductsModal">
+          <text>✕</text>
+        </view>
+      </view>
+
+      <!-- 分类筛选 -->
+      <scroll-view scroll-x class="categories-bar">
+        <view
+          class="category-item {{!selectedCategory ? 'active' : ''}}"
+          bindtap="selectCategory"
+          data-id=""
+        >全部</view>
+        <view
+          wx:for="{{categories}}"
+          wx:key="id"
+          class="category-item {{selectedCategory === item.id ? 'active' : ''}}"
+          bindtap="selectCategory"
+          data-id="{{item.id}}"
+        >{{item.icon}} {{item.name}}</view>
+      </scroll-view>
+
+      <!-- 商品列表 -->
+      <scroll-view scroll-y class="products-list">
+        <view class="products-grid">
+          <view
+            wx:for="{{products}}"
+            wx:key="id"
+            class="product-item {{item._selected ? 'selected' : ''}} {{item._replaceable ? 'replaceable' : ''}}"
+            data-product="{{item}}"
+            bindtap="toggleProduct"
+          >
+            <view class="product-image">
+              <image wx:if="{{item._fullImageUrl}}" src="{{item._fullImageUrl}}" mode="aspectFill"></image>
+              <text wx:else class="product-icon">{{item.category_icon || '👔'}}</text>
+              <!-- 选中标记 -->
+              <view wx:if="{{item._selected}}" class="check-mark">
+                <c-icon name="check" size="28rpx"></c-icon>
+              </view>
+              <!-- 同类别替换提示 -->
+              <view wx:if="{{item._replaceable && !item._selected}}" class="replace-hint">
+                <text>点击替换</text>
+              </view>
+            </view>
+            <view class="product-info">
+              <text class="product-name">{{item.name}}</text>
+              <text class="product-category">{{item.category_name}}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{products.length === 0}}" class="empty-products">
+          <text>暂无商品</text>
+        </view>
+      </scroll-view>
+
+      <!-- 底部区域：已选商品 + 确认按钮 -->
+      <view class="modal-footer">
+        <!-- 已选商品预览（横向滚动） -->
+        <scroll-view wx:if="{{selectedProducts.length > 0}}" scroll-x class="selected-scroll">
+          <view class="selected-items">
+            <view
+              wx:for="{{selectedProducts}}"
+              wx:key="id"
+              class="selected-item"
+              data-id="{{item.id}}"
+              bindtap="removeSelectedProduct"
+            >
+              <image wx:if="{{item._fullImageUrl}}" src="{{item._fullImageUrl}}" mode="aspectFill"></image>
+              <text wx:else class="selected-icon">{{item.category_icon || '👔'}}</text>
+              <view class="remove-badge">✕</view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 确认按钮 -->
+        <view
+          class="confirm-btn {{selectedProducts.length > 0 ? '' : 'disabled'}}"
+          bindtap="startTryOn"
+        >
+          {{selectedProducts.length > 0 ? '开始试穿' : '请选择商品'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 使用引导弹窗 -->
+  <view wx:if="{{showGuide}}" class="guide-modal">
+    <view class="guide-content">
+      <text class="guide-title">👋 欢迎使用 AI 试衣间</text>
+
+      <view class="guide-steps">
+        <view class="guide-step">
+          <view class="step-number">1</view>
+          <view class="step-content">
+            <text class="step-title">📸 拍摄全身照</text>
+            <text class="step-desc">点击拍照按钮，保持全身入镜</text>
+          </view>
+        </view>
+        <view class="guide-step">
+          <view class="step-number">2</view>
+          <view class="step-content">
+            <text class="step-title">👔 选择试穿商品</text>
+            <text class="step-desc">可同时选择多件商品（上衣+裤子+鞋子等）</text>
+          </view>
+        </view>
+        <view class="guide-step">
+          <view class="step-number">3</view>
+          <view class="step-content">
+            <text class="step-title">✨ AI 生成效果</text>
+            <text class="step-desc">AI 将生成逼真的穿戴效果图</text>
+          </view>
+        </view>
+      </view>
+
+      <text class="guide-tip">💡 提示：光线充足、背景简洁效果更好</text>
+
+      <view class="guide-btn" bindtap="hideGuide">开始体验</view>
+    </view>
+  </view>
+</view>
+

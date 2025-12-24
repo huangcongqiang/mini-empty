@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "AI试衣间",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "c-icon": "/components/icon/icon"
+  }
+}
+

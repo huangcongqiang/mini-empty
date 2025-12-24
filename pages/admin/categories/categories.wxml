@@ -1,0 +1,74 @@
+<!--pages/admin/categories/categories.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <c-icon name="loading" size="60rpx"></c-icon>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 分类列表 -->
+  <view class="category-list" wx:if="{{!loading}}">
+    <view class="category-card" wx:for="{{categories}}" wx:key="id">
+      <view class="category-icon">{{item.icon}}</view>
+      <view class="category-info">
+        <view class="category-name">{{item.name}}</view>
+        <view class="category-meta">
+          <text wx:if="{{item.is_default}}" class="default-tag">默认</text>
+          <text class="product-count">{{item.product_count || 0}} 件商品</text>
+        </view>
+      </view>
+      <view class="category-actions" wx:if="{{!item.is_default}}">
+        <button class="action-btn edit" bindtap="editCategory" data-item="{{item}}">
+          <c-icon name="edit" size="32rpx"></c-icon>
+        </button>
+        <button class="action-btn delete" bindtap="deleteCategory" data-item="{{item}}">
+          <c-icon name="delete" size="32rpx"></c-icon>
+        </button>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty" wx:if="{{categories.length === 0}}">
+      <c-icon name="category" size="120rpx" customStyle="opacity:0.3;"></c-icon>
+      <text>暂无分类</text>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="add-btn" bindtap="showAddModal">
+    <c-icon name="plus" size="48rpx"></c-icon>
+  </view>
+</view>
+
+<!-- 添加/编辑弹窗 -->
+<view class="modal" wx:if="{{showModal}}" bindtap="hideModal">
+  <view class="modal-content" catchtap="">
+    <view class="modal-header">
+      <text class="modal-title">{{editingItem ? '编辑分类' : '添加分类'}}</text>
+      <view class="modal-close" bindtap="hideModal">×</view>
+    </view>
+    <view class="modal-body">
+      <!-- 图标选择 -->
+      <view class="form-item">
+        <text class="form-label">分类图标</text>
+        <scroll-view class="icon-picker" scroll-x>
+          <view class="icon-item {{formData.icon === item ? 'active' : ''}}" 
+            wx:for="{{iconList}}" wx:key="*this"
+            bindtap="selectIcon" data-icon="{{item}}">
+            {{item}}
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 分类名称 -->
+      <view class="form-item">
+        <text class="form-label">分类名称 *</text>
+        <input class="form-input" placeholder="请输入分类名称" value="{{formData.name}}" bindinput="onInputName" />
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="btn-cancel" bindtap="hideModal">取消</button>
+      <button class="btn-confirm" bindtap="saveCategory" loading="{{saving}}">保存</button>
+    </view>
+  </view>
+</view>
+

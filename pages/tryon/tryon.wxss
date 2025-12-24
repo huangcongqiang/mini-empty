@@ -1,0 +1,733 @@
+/* pages/tryon/tryon.wxss */
+.container {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 加载页面 */
+.loading-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30rpx;
+  color: #667eea;
+}
+
+.loading-page-text {
+  font-size: 28rpx;
+  color: #a0a0c0;
+}
+
+/* 错误页面 */
+.error-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40rpx;
+}
+
+.error-page-text {
+  font-size: 32rpx;
+  color: #ff6b6b;
+}
+
+.error-page-btn {
+  padding: 20rpx 60rpx;
+  background: rgba(255,255,255,0.15);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+/* 主内容 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部导航 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.header-right {
+  width: 180rpx;
+}
+
+.back-btn {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+}
+
+.store-info {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.store-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* 相机区域 */
+.camera-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.camera {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.camera-guide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.guide-outline {
+  width: 300rpx;
+  height: 550rpx;
+  border: 4rpx dashed rgba(102, 126, 234, 0.6);
+  border-radius: 150rpx 150rpx 80rpx 80rpx;
+}
+
+.guide-text {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.7);
+}
+
+/* 相机控制栏 */
+.camera-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 40rpx 60rpx 80rpx;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  color: #667eea;
+  font-size: 24rpx;
+}
+
+.control-btn text {
+  color: #a0a0c0;
+}
+
+.capture-btn {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 6rpx solid #667eea;
+}
+
+.capture-inner {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: #667eea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.countdown-text {
+  position: absolute;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* 结果展示区域 */
+.result-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  background: rgba(0,0,0,0.6);
+}
+
+.result-title {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.image-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+}
+
+.original-hint {
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  z-index: 10;
+}
+
+/* 加载遮罩 */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30rpx;
+  color: #667eea;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #a0a0c0;
+}
+
+/* 错误遮罩 */
+.error-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30rpx;
+}
+
+.error-text {
+  font-size: 28rpx;
+  color: #ff6b6b;
+}
+
+.retry-btn {
+  padding: 16rpx 50rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+/* 已试穿商品列表 */
+.tried-products {
+  position: fixed;
+  right: 20rpx;
+  bottom: 300rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  z-index: 50;
+}
+
+.tried-item {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  border: 3rpx solid rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.5);
+}
+
+.tried-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.tried-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 40rpx;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 24rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  box-sizing: border-box;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  width: 100%;
+}
+
+.action-hint {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.4);
+}
+
+.action-buttons {
+  display: flex;
+  width: 100%;
+  gap: 16rpx;
+  box-sizing: border-box;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  padding: 16rpx 0;
+  background: rgba(255,255,255,0.12);
+  border-radius: 16rpx;
+  color: #667eea;
+  font-size: 22rpx;
+  border: none;
+  margin: 0;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.action-btn text {
+  color: rgba(255,255,255,0.8);
+  white-space: nowrap;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.action-btn.primary text {
+  color: #fff;
+}
+
+.share-btn {
+  line-height: normal;
+  padding: 16rpx 0 !important;
+  margin: 0 !important;
+}
+
+.share-btn::after {
+  display: none;
+}
+
+.select-action {
+  padding: 0;
+}
+
+.select-btn {
+  width: 100%;
+  padding: 30rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+/* 商品选择弹窗 */
+.products-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.modal-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90vh;
+  background: #1a1a2e;
+  border-radius: 30rpx 30rpx 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 30rpx;
+  border-bottom: 1rpx solid rgba(255,255,255,0.1);
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.selected-count {
+  color: #667eea;
+  margin-left: 16rpx;
+}
+
+.modal-close {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 36rpx;
+}
+
+/* 已选商品预览 - 在底部footer内 */
+.selected-scroll {
+  white-space: nowrap;
+  margin-bottom: 16rpx;
+}
+
+.selected-items {
+  display: inline-flex;
+  gap: 16rpx;
+}
+
+.selected-item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.selected-item image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid #667eea;
+}
+
+.selected-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  background: #2a2a4e;
+  border: 2rpx solid #667eea;
+  font-size: 32rpx;
+}
+
+.remove-badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  width: 28rpx;
+  height: 28rpx;
+  background: #ff6b6b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18rpx;
+  color: #fff;
+}
+
+/* 分类筛选 */
+.categories-bar {
+  padding: 20rpx 30rpx;
+  white-space: nowrap;
+  border-bottom: 1rpx solid rgba(255,255,255,0.1);
+}
+
+.category-item {
+  display: inline-block;
+  padding: 16rpx 28rpx;
+  margin-right: 16rpx;
+  background: rgba(255,255,255,0.1);
+  border-radius: 30rpx;
+  font-size: 26rpx;
+}
+
+.category-item.active {
+  background: #667eea;
+}
+
+/* 商品列表 */
+.products-list {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.product-item {
+  width: calc(33.33% - 14rpx);
+  background: rgba(255,255,255,0.08);
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.product-item.selected {
+  background: rgba(102, 126, 234, 0.2);
+  box-shadow: 0 0 0 3rpx #667eea;
+}
+
+.product-image {
+  position: relative;
+  aspect-ratio: 1;
+  background: #2a2a4e;
+}
+
+.product-image image {
+  width: 100%;
+  height: 100%;
+}
+
+.product-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 60rpx;
+}
+
+.check-mark {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background: #667eea;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.replace-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.replace-hint text {
+  font-size: 22rpx;
+  padding: 8rpx 16rpx;
+  background: rgba(0,0,0,0.5);
+  border-radius: 20rpx;
+}
+
+.product-info {
+  padding: 16rpx;
+}
+
+.product-name {
+  display: block;
+  font-size: 24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-category {
+  display: block;
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.5);
+  margin-top: 6rpx;
+}
+
+.empty-products {
+  text-align: center;
+  padding: 100rpx 0;
+  color: rgba(255,255,255,0.5);
+}
+
+/* 底部确认按钮区域 */
+.modal-footer {
+  padding: 16rpx 24rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  background: #1a1a2e;
+  border-top: 1rpx solid rgba(255,255,255,0.1);
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.confirm-btn.disabled {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+}
+
+/* 使用引导弹窗 */
+.guide-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.guide-content {
+  background: #1a1a2e;
+  border-radius: 30rpx;
+  padding: 50rpx 40rpx;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.guide-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+
+.guide-steps {
+  margin-bottom: 40rpx;
+}
+
+.guide-step {
+  display: flex;
+  gap: 24rpx;
+  margin-bottom: 30rpx;
+}
+
+.step-number {
+  width: 56rpx;
+  height: 56rpx;
+  background: #667eea;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+
+.step-desc {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+}
+
+.guide-tip {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.guide-btn {
+  width: 100%;
+  padding: 28rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 500;
+}

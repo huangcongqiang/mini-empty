@@ -1,0 +1,58 @@
+<!--pages/stores/stores.wxml-->
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-title">选择店铺</view>
+    <view class="header-subtitle">请选择您要进入的店铺</view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <c-icon name="loading" size="60rpx"></c-icon>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 店铺列表 -->
+  <scroll-view class="store-list" scroll-y wx:if="{{!loading && stores.length > 0}}">
+    <view 
+      class="store-card" 
+      wx:for="{{stores}}" 
+      wx:key="id"
+      bindtap="selectStore"
+      data-store="{{item}}"
+    >
+      <view class="store-avatar">
+        <image 
+          wx:if="{{item.avatar}}" 
+          class="avatar-image" 
+          src="{{item.avatar}}" 
+          mode="aspectFill"
+        ></image>
+        <c-icon wx:else name="store" size="48rpx"></c-icon>
+      </view>
+      <view class="store-info">
+        <view class="store-name">{{item.storeName || item.username}}</view>
+        <view class="store-desc" wx:if="{{item.isAdmin}}">管理员</view>
+        <view class="store-meta">
+          <text class="meta-item">{{item.productCount || 0}} 件商品</text>
+        </view>
+      </view>
+      <view class="store-arrow">
+        <view class="arrow-icon"></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!loading && stores.length === 0}}">
+    <c-icon name="store" size="120rpx" customStyle="opacity: 0.3;"></c-icon>
+    <view class="empty-text">暂无可用店铺</view>
+    <button class="refresh-btn" bindtap="loadStores">刷新</button>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-area">
+    <button class="logout-btn" bindtap="handleLogout">退出登录</button>
+  </view>
+</view>
+

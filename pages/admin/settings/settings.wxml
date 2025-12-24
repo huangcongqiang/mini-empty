@@ -1,0 +1,37 @@
+<!--pages/admin/settings/settings.wxml-->
+<view class="container">
+  <!-- 店铺信息 -->
+  <view class="section">
+    <view class="section-title">店铺信息</view>
+    <view class="form-card">
+      <view class="form-item">
+        <text class="form-label">店铺名称</text>
+        <input class="form-input" placeholder="请输入店铺名称" value="{{storeName}}" bindinput="onInputStoreName" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">用户名</text>
+        <view class="form-value">{{username}}</view>
+        <text class="form-hint">用户名不可修改</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 店铺链接 -->
+  <view class="section">
+    <view class="section-title">店铺链接</view>
+    <view class="link-card" bindtap="copyLink">
+      <view class="link-text">{{storeLink}}</view>
+      <view class="link-action">
+        <c-icon name="copy" size="32rpx"></c-icon>
+        <text>复制</text>
+      </view>
+    </view>
+    <view class="link-hint">顾客通过此链接或扫描小程序码进入试穿</view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-section">
+    <button class="save-btn" bindtap="saveSettings" loading="{{saving}}">保存设置</button>
+  </view>
+</view>
+

@@ -1,0 +1,27 @@
+<!--pages/admin/generated/generated.wxml-->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <c-icon name="loading" size="60rpx"></c-icon>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 图片列表 -->
+  <view class="image-grid" wx:if="{{!loading && images.length > 0}}">
+    <view class="image-item" wx:for="{{images}}" wx:key="id" bindtap="previewImage" data-index="{{index}}">
+      <image class="result-image" src="{{item.result_image}}" mode="aspectFill"></image>
+      <view class="image-info">
+        <text class="image-product">{{item.product_name}}</text>
+        <text class="image-time">{{item.created_at}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{!loading && images.length === 0}}">
+    <c-icon name="image" size="120rpx" customStyle="opacity:0.3;"></c-icon>
+    <text>暂无生成记录</text>
+    <text class="empty-hint">当顾客使用试穿功能后，记录会显示在这里</text>
+  </view>
+</view>
+

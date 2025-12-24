@@ -1,0 +1,99 @@
+<!--pages/admin/admin.wxml-->
+<view class="container">
+  <!-- 头部信息 -->
+  <view class="header">
+    <view class="store-info">
+      <view class="store-icon">
+        <c-icon name="store" size="48rpx"></c-icon>
+      </view>
+      <view class="store-text">
+        <view class="store-name">{{userInfo.storeName || '我的店铺'}}</view>
+        <view class="store-user">@{{userInfo.username}}</view>
+      </view>
+    </view>
+    <view class="header-actions">
+      <button class="qr-btn" bindtap="showQRCode">
+        <c-icon name="qrcode" size="40rpx"></c-icon>
+      </button>
+    </view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="menu-section">
+    <view class="section-title">店铺管理</view>
+    
+    <view class="menu-grid">
+      <view class="menu-item" bindtap="goToProducts">
+        <view class="menu-icon purple">
+          <c-icon name="package" size="48rpx"></c-icon>
+        </view>
+        <view class="menu-text">商品管理</view>
+        <view class="menu-desc">添加、编辑商品</view>
+      </view>
+
+      <view class="menu-item" bindtap="goToCategories">
+        <view class="menu-icon blue">
+          <c-icon name="category" size="48rpx"></c-icon>
+        </view>
+        <view class="menu-text">分类管理</view>
+        <view class="menu-desc">管理商品分类</view>
+      </view>
+
+      <view class="menu-item" bindtap="goToGenerated">
+        <view class="menu-icon orange">
+          <c-icon name="image" size="48rpx"></c-icon>
+        </view>
+        <view class="menu-text">生成记录</view>
+        <view class="menu-desc">查看试穿效果</view>
+      </view>
+
+      <view class="menu-item" bindtap="goToSettings">
+        <view class="menu-icon green">
+          <c-icon name="setting" size="48rpx"></c-icon>
+        </view>
+        <view class="menu-text">店铺设置</view>
+        <view class="menu-desc">修改店铺信息</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷操作 -->
+  <view class="quick-section">
+    <view class="section-title">快捷操作</view>
+    <view class="quick-card" bindtap="previewStore">
+      <view class="quick-left">
+        <c-icon name="eye" size="40rpx"></c-icon>
+        <text>预览店铺</text>
+      </view>
+      <view class="quick-right">
+        <text class="quick-hint">查看顾客视角</text>
+        <view class="arrow"></view>
+      </view>
+    </view>
+    <view class="quick-card" bindtap="copyStoreLink">
+      <view class="quick-left">
+        <c-icon name="link" size="40rpx"></c-icon>
+        <text>复制店铺链接</text>
+      </view>
+      <view class="quick-right">
+        <view class="arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="handleLogout">退出登录</button>
+  </view>
+</view>
+
+<!-- 二维码弹窗 -->
+<view class="qr-modal" wx:if="{{showQR}}" bindtap="hideQRCode">
+  <view class="qr-content" catchtap="">
+    <view class="qr-title">店铺二维码</view>
+    <view class="qr-desc">顾客扫码即可进入试穿</view>
+    <image class="qr-image" src="{{qrCodeUrl}}" mode="aspectFit"></image>
+    <button class="qr-save-btn" bindtap="saveQRCode">保存二维码</button>
+  </view>
+</view>
+

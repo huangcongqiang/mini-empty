@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "c-icon": "/components/icon/icon"
+  },
+  "navigationBarTitleText": "生成记录"
+}
+

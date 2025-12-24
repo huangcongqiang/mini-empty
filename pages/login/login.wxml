@@ -1,0 +1,69 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <!-- 背景装饰 -->
+  <view class="bg-decoration">
+    <view class="circle circle-1"></view>
+    <view class="circle circle-2"></view>
+    <view class="circle circle-3"></view>
+  </view>
+
+  <!-- Logo 区域 -->
+  <view class="logo-area">
+    <view class="logo-icon">
+      <c-icon name="magic" size="80rpx"></c-icon>
+    </view>
+    <view class="app-name">AI 试衣间</view>
+    <view class="app-slogan">智能穿搭，一键换装</view>
+  </view>
+
+  <!-- 登录表单 -->
+  <view class="login-form">
+    <view class="input-group">
+      <view class="input-icon">
+        <c-icon name="user" size="40rpx"></c-icon>
+      </view>
+      <input 
+        class="input-field" 
+        placeholder="请输入用户名" 
+        placeholder-class="placeholder"
+        value="{{username}}"
+        bindinput="onUsernameInput"
+      />
+    </view>
+
+    <view class="input-group">
+      <view class="input-icon">
+        <view class="lock-icon"></view>
+      </view>
+      <input 
+        class="input-field" 
+        placeholder="请输入密码" 
+        placeholder-class="placeholder"
+        password="{{!showPassword}}"
+        value="{{password}}"
+        bindinput="onPasswordInput"
+      />
+      <view class="toggle-password" bindtap="togglePassword">
+        <text>{{showPassword ? '隐藏' : '显示'}}</text>
+      </view>
+    </view>
+
+    <button 
+      class="login-btn {{canLogin ? '' : 'disabled'}}" 
+      bindtap="handleLogin"
+      disabled="{{!canLogin || loading}}"
+    >
+      <c-icon wx:if="{{loading}}" name="loading" size="36rpx"></c-icon>
+      <text wx:else>登 录</text>
+    </button>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer">
+    <text class="footer-text">登录即表示同意</text>
+    <text class="footer-link">《用户协议》</text>
+    <text class="footer-text">和</text>
+    <text class="footer-link">《隐私政策》</text>
+  </view>
+</view>
+
