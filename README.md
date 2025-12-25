@@ -1,98 +1,90 @@
-# AI虚拟小程序
+# AI 虚拟试衣间
 
-这是一个微信小程序项目，主要功能包括：
-1. 嵌入外部网页 https://cyxss.xyz
-2. 支持分享功能，分享后打开独立的H5页面
+基于 AI 技术的虚拟试衣解决方案，支持微信小程序和 Web 管理后台。
 
 ## 项目结构
 
 ```
-ai-virtual-minigrama/
-├── app.js                  # 小程序入口文件
-├── app.json                # 小程序全局配置
-├── app.wxss                # 小程序全局样式
-├── sitemap.json            # 搜索配置
-├── project.config.json     # 项目配置文件
-└── pages/
-    ├── index/              # 主页面（嵌入web-view）
-    │   ├── index.js
-    │   ├── index.json
-    │   ├── index.wxml
-    │   └── index.wxss
-    └── share/              # 分享页面
-        ├── share.js
-        ├── share.json
-        ├── share.wxml
-        └── share.wxss
+├── pages/              # 微信小程序页面
+│   ├── tryon/          # 试衣主页面
+│   ├── login/          # 登录页面
+│   ├── stores/         # 店铺列表
+│   └── admin/          # 商家管理页面
+│       ├── products/   # 商品管理
+│       ├── categories/ # 分类管理
+│       ├── generated/  # 生成记录
+│       └── settings/   # 设置
+├── components/         # 小程序公共组件
+├── utils/              # 工具函数
+├── server/             # 后端服务
+│   ├── routes/         # API 路由
+│   └── middleware/     # 中间件
+├── admin/              # Web 管理后台 (React)
+└── services/           # Web 端服务
 ```
 
-## 功能说明
+## 功能特性
 
-### 1. 主页面（pages/index）
-- 使用 `web-view` 组件嵌入 https://cyxss.xyz
-- 支持分享到好友和朋友圈
-- 分享后会跳转到分享页面
+- 📸 **AI 虚拟试穿** - 上传人像照片，AI 生成试穿效果
+- 🏪 **多店铺支持** - 商家可创建店铺，管理商品
+- 📦 **商品管理** - 分类管理、商品上下架
+- 🖼️ **生成记录** - 保存和管理 AI 生成的试穿图片
+- 👤 **用户系统** - 登录注册、权限管理
 
-### 2. 分享页面（pages/share）
-- 当用户通过分享进入小程序时，会打开此页面
-- 同样使用 `web-view` 组件显示H5页面
-- 可以通过URL参数动态设置要显示的链接
+## 快速开始
 
-## 使用说明
+### 环境要求
 
-### 1. 导入项目
-1. 打开微信开发者工具
-2. 选择"导入项目"
-3. 选择本项目目录
-4. 填写AppID（测试可使用测试号）
+- Node.js >= 16
+- 微信开发者工具
 
-### 2. 开发阶段配置（重要！）
-**如果提示"不支持打开 cyxss.xyz"，请按以下步骤操作：**
+### 后端服务
 
-1. 在微信开发者工具中，点击右上角 **详情** 按钮
-2. 选择 **本地设置** 标签
-3. 勾选 **不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书**
-4. 重新编译项目
+```bash
+cd server
+npm install
+npm start
+```
 
-### 3. 正式发布前配置业务域名
-由于使用了 `web-view` 组件，正式发布前需要在微信公众平台配置业务域名：
-1. 登录微信公众平台 (mp.weixin.qq.com)
-2. 进入"开发" -> "开发管理" -> "开发设置"
-3. 在"业务域名"中添加 `cyxss.xyz`
-4. 下载校验文件并放置到域名根目录 `https://cyxss.xyz/`
-5. 点击保存并验证
+服务默认运行在 `http://localhost:3000`
 
-**注意：** 业务域名必须满足：
-- 使用 HTTPS 协议
-- 已完成 ICP 备案
-- 能够正常访问
+### 微信小程序
 
-### 4. 修改分享页面URL
-如果需要修改分享页面显示的H5链接，可以编辑 `pages/share/share.js` 文件中的URL。
+1. 使用微信开发者工具打开项目根目录
+2. 在 `app.js` 中配置 API 地址
+3. 编译运行
 
-### 5. 自定义分享内容
-在 `pages/index/index.js` 和 `pages/share/share.js` 中可以修改：
-- `title`: 分享标题
-- `imageUrl`: 分享图片
-- `path`: 分享路径
+### Web 管理后台
 
-## 注意事项
+```bash
+npm install
+npm run dev
+```
 
-1. **业务域名配置**：使用 `web-view` 必须配置业务域名，否则无法正常显示
-2. **HTTPS要求**：嵌入的网页必须使用HTTPS协议
-3. **分享功能**：需要在真机上测试，开发者工具可能无法完全模拟分享功能
-4. **AppID**：正式发布需要使用正式的AppID
+## 环境变量
 
-## 开发调试
+### 后端 (.env)
 
-1. 在微信开发者工具中打开项目
-2. 点击"编译"按钮
-3. 在模拟器或真机上预览效果
+```
+PORT=3000
+JWT_SECRET=your-jwt-secret
+GEMINI_API_KEY=your-gemini-api-key
+```
 
-## 发布流程
+## API 接口
 
-1. 在微信开发者工具中点击"上传"
-2. 填写版本号和项目备注
-3. 登录微信公众平台提交审核
-4. 审核通过后发布上线
+| 模块 | 路径 | 说明 |
+|------|------|------|
+| 用户 | `/api/users/*` | 登录、注册、用户信息 |
+| 店铺 | `/api/stores/*` | 店铺 CRUD |
+| 分类 | `/api/categories/*` | 商品分类管理 |
+| 商品 | `/api/products/*` | 商品 CRUD |
+| 试穿 | `/api/tryon/*` | AI 试穿生成 |
+| 生成 | `/api/generated/*` | 生成记录管理 |
 
+## 技术栈
+
+- **小程序**: 原生微信小程序
+- **Web 后台**: React + Vite + TypeScript
+- **后端**: Express + SQLite + JWT
+- **AI**: Google Gemini API
