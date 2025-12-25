@@ -18,11 +18,11 @@
         </view>
       </view>
       <view class="category-actions" wx:if="{{!item.is_default}}">
-        <button class="action-btn edit" bindtap="editCategory" data-item="{{item}}">
-          <c-icon name="edit" size="32rpx"></c-icon>
+        <button class="action-btn edit" bindtap="editCategory" data-item="{{item}}" aria-label="编辑分类">
+          <image class="action-icon" src="/assets/edit.svg" mode="aspectFit"></image>
         </button>
-        <button class="action-btn delete" bindtap="deleteCategory" data-item="{{item}}">
-          <c-icon name="delete" size="32rpx"></c-icon>
+        <button class="action-btn delete" bindtap="deleteCategory" data-item="{{item}}" aria-label="删除分类">
+          <image class="action-icon" src="/assets/delete.svg" mode="aspectFit"></image>
         </button>
       </view>
     </view>

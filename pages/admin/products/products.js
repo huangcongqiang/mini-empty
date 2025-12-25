@@ -29,7 +29,9 @@ Page({
   getFullImageUrl(path) {
     if (!path) return ''
     if (path.startsWith('http') || path.startsWith('wxfile://')) return path
-    return `${app.globalData.apiBase}${path}`
+    // apiBase 是 https://cyxss.xyz/api，图片路径需要去掉 /api
+    const baseUrl = app.globalData.apiBase.replace('/api', '')
+    return `${baseUrl}${path}`
   },
 
   async loadData() {

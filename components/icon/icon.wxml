@@ -1,5 +1,10 @@
 <!-- components/icon/icon.wxml -->
-<view class="icon icon-{{name}} {{className}}" style="width:{{size}};height:{{size}};{{customStyle}}">
+<view
+  class="icon icon-{{name}} {{className}}"
+  style="width:{{size}};height:{{size}};{{customStyle}}"
+  aria-label="{{ariaLabel || computedAriaLabel}}"
+  aria-hidden="{{ariaHidden}}"
+  role="img">
   <!-- 相机 -->
   <view wx:if="{{name === 'camera'}}" class="icon-inner">
     <view class="camera-body"></view>

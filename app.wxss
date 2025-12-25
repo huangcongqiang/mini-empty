@@ -1,6 +1,211 @@
 /**app.wxss**/
+
+/* ==================== 全局盒模型设置 ==================== */
+/* 确保所有元素使用 border-box，避免宽度溢出问题 */
+view, scroll-view, swiper, swiper-item, movable-area, movable-view,
+text, rich-text, icon, progress,
+button, checkbox, form, input, label, picker, radio, slider, switch, textarea,
+navigator, audio, image, video, camera, live-player, live-pusher,
+map, canvas, open-data, web-view, cover-view, cover-image {
+  box-sizing: border-box;
+}
+
+/* ==================== 全局变量定义 ==================== */
+/* 符合 WCAG 2.1 AA 标准的颜色系统 (对比度 >= 4.5:1) */
+
 page {
+  /* 主色调 */
+  --color-primary: #2b5aff;
+  --color-primary-dark: #2349cc;
+  --color-primary-light: #667eea;
+  --color-secondary: #764ba2;
+
+  /* 文本颜色 - 高对比度 */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-tertiary: #6b6b6b;
+  --color-text-white: #ffffff;
+  --color-text-white-secondary: rgba(255, 255, 255, 0.85);
+
+  /* 背景颜色 */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f6f7f9;
+  --color-bg-dark: #000000;
+  --color-bg-dark-secondary: #1a1a2e;
+
+  /* 状态颜色 */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* 阴影 */
+  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10rpx 30rpx rgba(0, 0, 0, 0.12);
+
+  /* 圆角 */
+  --radius-sm: 8rpx;
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+  --radius-full: 9999rpx;
+
+  /* 间距系统 - 8px 网格 */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 16rpx;
+  --spacing-md: 24rpx;
+  --spacing-lg: 32rpx;
+  --spacing-xl: 40rpx;
+  --spacing-2xl: 48rpx;
+
+  /* 字体大小 */
+  --font-size-xs: 20rpx;
+  --font-size-sm: 24rpx;
+  --font-size-base: 28rpx;
+  --font-size-lg: 32rpx;
+  --font-size-xl: 36rpx;
+
   height: 100%;
   width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft Yahei', sans-serif;
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* ==================== 通用工具类 ==================== */
+
+/* 间距 */
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.px-md { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
+.py-md { padding-top: var(--spacing-md); padding-bottom: var(--spacing-md); }
+
+/* 文本 */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-white { color: var(--color-text-white); }
+.text-center { text-align: center; }
+.font-medium { font-weight: 500; }
+.font-bold { font-weight: 700; }
+
+/* 卡片样式 */
+.card-box {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* 按钮基础样式与点击反馈 */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--color-text-white);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  padding: var(--spacing-md) 0;
+  box-shadow: var(--shadow-lg);
+  border: none;
+  text-align: center;
+}
+
+.btn-hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+/* ==================== 排版层次系统 ==================== */
+
+/* 标题样式 */
+.heading-xl {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.heading-lg {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.heading-md {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* 正文样式 */
+.body-lg {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+.body-sm {
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+/* 辅助文本 */
+.caption {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  line-height: 1.4;
+}
+
+/* ==================== 骨架屏加载动画 ==================== */
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-dark {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.08) 25%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.08) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 骨架屏尺寸 */
+.skeleton-text { height: 28rpx; }
+.skeleton-title { height: 36rpx; width: 60%; }
+.skeleton-avatar { width: 80rpx; height: 80rpx; border-radius: 50%; }
+.skeleton-image { width: 100%; aspect-ratio: 1; }
+.skeleton-btn { height: 80rpx; border-radius: var(--radius-full); }
+
+/* ==================== 按钮点击反馈 ==================== */
+
+.btn-feedback {
+  transition: all 150ms ease;
+}
+
+.btn-feedback:active {
+  transform: scale(0.96);
+  opacity: 0.85;
 }
 

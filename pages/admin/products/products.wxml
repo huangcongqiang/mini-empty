@@ -28,11 +28,11 @@
         </view>
       </view>
       <view class="product-actions">
-        <button class="action-btn edit" bindtap="editProduct" data-product="{{item}}">
-          <c-icon name="edit" size="32rpx"></c-icon>
+        <button class="action-btn edit" bindtap="editProduct" data-product="{{item}}" aria-label="编辑商品">
+          <image class="action-icon" src="/assets/edit.svg" mode="aspectFit"></image>
         </button>
-        <button class="action-btn delete" bindtap="deleteProduct" data-id="{{item.id}}">
-          <c-icon name="delete" size="32rpx"></c-icon>
+        <button class="action-btn delete" bindtap="deleteProduct" data-id="{{item.id}}" aria-label="删除商品">
+          <image class="action-icon" src="/assets/delete.svg" mode="aspectFit"></image>
         </button>
       </view>
     </view>

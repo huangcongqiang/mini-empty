@@ -73,8 +73,19 @@ Page({
 
   // 显示二维码
   showQRCode() {
-    // TODO: 生成真实的小程序码
-    this.setData({ showQR: true })
+    const { userInfo } = this.data
+    if (!userInfo) return
+
+    // 构建店铺页面路径，用于生成小程序码
+    const pagePath = `pages/tryon/tryon?store=${userInfo.username}`
+
+    // 调用后端接口生成小程序码
+    const qrCodeUrl = `${app.globalData.apiBase}/wxacode?path=${encodeURIComponent(pagePath)}`
+
+    this.setData({
+      showQR: true,
+      qrCodeUrl: qrCodeUrl
+    })
   },
 
   hideQRCode() {
@@ -82,7 +93,54 @@ Page({
   },
 
   saveQRCode() {
-    wx.showToast({ title: '功能开发中', icon: 'none' })
+    const { qrCodeUrl } = this.data
+    if (!qrCodeUrl) {
+      wx.showToast({ title: '二维码未生成', icon: 'none' })
+      return
+    }
+
+    wx.showLoading({ title: '保存中...' })
+
+    // 下载图片到本地临时路径
+    wx.downloadFile({
+      url: qrCodeUrl,
+      success: (res) => {
+        if (res.statusCode === 200) {
+          // 保存到相册
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: () => {
+              wx.hideLoading()
+              wx.showToast({ title: '已保存到相册', icon: 'success' })
+            },
+            fail: (err) => {
+              wx.hideLoading()
+              if (err.errMsg.includes('auth deny')) {
+                wx.showModal({
+                  title: '提示',
+                  content: '需要授权保存图片到相册',
+                  confirmText: '去设置',
+                  success: (modalRes) => {
+                    if (modalRes.confirm) {
+                      wx.openSetting()
+                    }
+                  }
+                })
+              } else {
+                wx.showToast({ title: '保存失败', icon: 'none' })
+              }
+            }
+          })
+        } else {
+          wx.hideLoading()
+          wx.showToast({ title: '下载失败', icon: 'none' })
+        }
+      },
+      fail: () => {
+        wx.hideLoading()
+        wx.showToast({ title: '下载失败', icon: 'none' })
+      }
+    })
   },
 
   // 退出登录

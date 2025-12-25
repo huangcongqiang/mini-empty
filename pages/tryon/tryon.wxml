@@ -17,11 +17,11 @@
     <!-- 顶部导航栏 - 适配胶囊按钮 -->
     <view class="header" style="padding-top: {{statusBarHeight}}px;">
       <view class="header-left">
-        <view class="back-btn" bindtap="goBack">
-          <c-icon name="back" size="40rpx"></c-icon>
+        <view class="back-btn" bindtap="goBack" aria-label="返回上一页" role="button">
+          <c-icon name="back" size="40rpx" aria-hidden="{{true}}"></c-icon>
         </view>
-        <view class="store-info">
-          <c-icon name="store" size="40rpx"></c-icon>
+        <view class="store-info" aria-label="当前店铺：{{store.storeName || '试衣间'}}">
+          <c-icon name="store" size="40rpx" aria-hidden="{{true}}"></c-icon>
           <text class="store-name">{{store.storeName || '试衣间'}}</text>
         </view>
       </view>
@@ -45,18 +45,18 @@
 
       <!-- 相机控制栏 -->
       <view class="camera-controls">
-        <view class="control-btn" bindtap="chooseFromAlbum">
-          <c-icon name="album" size="44rpx"></c-icon>
+        <view class="control-btn" bindtap="chooseFromAlbum" aria-label="从相册选择照片" role="button">
+          <c-icon name="album" size="44rpx" aria-hidden="{{true}}"></c-icon>
           <text>相册</text>
         </view>
-        <view class="capture-btn" bindtap="takePhoto">
+        <view class="capture-btn" bindtap="takePhoto" aria-label="拍摄照片" role="button">
           <view class="capture-inner">
-            <c-icon wx:if="{{countdown > 0}}" name="loading" size="48rpx"></c-icon>
-            <text wx:if="{{countdown > 0}}" class="countdown-text">{{countdown}}</text>
+            <c-icon wx:if="{{countdown > 0}}" name="loading" size="48rpx" aria-label="倒计时中"></c-icon>
+            <text wx:if="{{countdown > 0}}" class="countdown-text" aria-live="polite">{{countdown}}</text>
           </view>
         </view>
-        <view class="control-btn" bindtap="switchCamera">
-          <c-icon name="switch" size="44rpx"></c-icon>
+        <view class="control-btn" bindtap="switchCamera" aria-label="切换前后摄像头" role="button">
+          <c-icon name="switch" size="44rpx" aria-hidden="{{true}}"></c-icon>
           <text>翻转</text>
         </view>
       </view>
@@ -66,8 +66,8 @@
   <view wx:if="{{capturedImage}}" class="result-area">
     <!-- 顶部操作栏 -->
     <view class="result-header" style="padding-top: {{statusBarHeight}}px;">
-      <view class="back-btn" bindtap="handleRetake">
-        <c-icon name="back" size="40rpx"></c-icon>
+      <view class="back-btn" bindtap="handleRetake" aria-label="重新拍照" role="button">
+        <c-icon name="back" size="40rpx" aria-hidden="{{true}}"></c-icon>
       </view>
       <text class="result-title">{{resultImage ? '试穿效果' : '照片预览'}}</text>
       <view class="header-right"></view>
@@ -114,24 +114,24 @@
     <!-- 底部操作栏 -->
     <view class="bottom-bar">
       <view wx:if="{{resultImage}}" class="result-actions">
-        <text class="action-hint">点击图片可放大查看 · 长按查看原图</text>
+        <text class="action-hint" aria-label="操作提示：点击图片可放大查看，长按查看原图">点击图片可放大查看 · 长按查看原图</text>
         <view class="action-buttons">
-          <view class="action-btn" bindtap="showProductsModal">
-            <c-icon name="clothes" size="40rpx"></c-icon>
+          <view class="action-btn" bindtap="showProductsModal" aria-label="更换试穿服装" role="button">
+            <c-icon name="clothes" size="40rpx" aria-hidden="{{true}}"></c-icon>
             <text>换装</text>
           </view>
-          <view class="action-btn primary" bindtap="saveToAlbum">
-            <c-icon name="save" size="40rpx"></c-icon>
+          <view class="action-btn primary" bindtap="saveToAlbum" aria-label="保存试穿效果到相册" role="button">
+            <c-icon name="save" size="40rpx" aria-hidden="{{true}}"></c-icon>
             <text>保存</text>
           </view>
-          <button class="action-btn share-btn" open-type="share">
-            <c-icon name="share" size="40rpx"></c-icon>
+          <button class="action-btn share-btn" open-type="share" aria-label="分享试穿效果给好友">
+            <c-icon name="share" size="40rpx" aria-hidden="{{true}}"></c-icon>
             <text>分享</text>
           </button>
         </view>
       </view>
       <view wx:else class="select-action">
-        <view class="select-btn" bindtap="showProductsModal">
+        <view class="select-btn" bindtap="showProductsModal" aria-label="打开商品列表选择试穿" role="button">
           <text>选择商品试穿</text>
         </view>
       </view>
