@@ -76,11 +76,8 @@ Page({
     const { userInfo } = this.data
     if (!userInfo) return
 
-    // 构建店铺页面路径，用于生成小程序码
-    const pagePath = `pages/tryon/tryon?store=${userInfo.username}`
-
-    // 调用后端接口生成小程序码
-    const qrCodeUrl = `${app.globalData.apiBase}/wxacode?path=${encodeURIComponent(pagePath)}`
+    // 使用 GET 接口直接获取小程序码图片
+    const qrCodeUrl = `${app.globalData.apiBase}/wxcode/image/${userInfo.username}`
 
     this.setData({
       showQR: true,
